@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Angular TransitionEnd</title>
+    <script src="bower_components/angularjs/angular.js" rel="javascript"></script>
+    <script src="angular-transition-end.js" rel="javascript"></script>
+
+    <style>
+      .demo {
+        background-color: red;
+        transition: all .5s linear;
+      }
+
+      .demo:hover {
+        background-color: green;
+      }
+    </style>
+
+  </head>
+
+  <body ng-app="gbTransitionEnd">
+    <div class="demo" demo>Animate Me</div>
+
+    <script>
+      angular.module('gbTransitionEnd').directive('demo', function(transitionEnd) {
+        return {
+          restrict: 'EA',
+          link: function linkFn($scope, $element) {
+            var cancel = transitionEnd($element, function() {
+              console.log('OVER');
+            });
+
+            $element.on('click', cancel);
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
